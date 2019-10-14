@@ -1,83 +1,35 @@
-#include"sudo3.h"
+#include"SudoKu.h"
 #include<random>
 #include<ctime>
-//#include<set>
 #include<iostream>
-//#include<vector>
-//#include<cstdlib>
-//typedef std::vector<int>  vint;
-//typedef std::vector<vint> vvint;
 using namespace std;
-/*class SudoKu
-{
-private:
-    //const int hardclass;
-    int checktemp;//
-    vvint vvnum;
-    vvint result;
-    void creat_sudo();
-    //
-    void change_value(int lhs,int rhs);
-    void swap_col(int lhs,int rhs);
-    void swap_row(int lhs,int rhs);
-    void swap_threecol(int lhs,int rhs);
-    void swap_threerow(int lhs,int rhs);
-
-    int onlyone(int a,int b);
-public:
-    SudoKu();
-    void change_Number();//åˆå§‹åŒ„1¤79Ã—9æ ¼å­
-    //~SudoKu(){}
-    explicit SudoKu(int a);
-
-    const vint & operator[](int a)const{return vvnum[a];}
-
-    vint & operator[](int a){return vvnum[a];}
-    vvint copy();
-    void set(const vvint& vec);
-
-
-    const vvint& getresult(){return result;}
-    std::pair<int,int> help();
-
-    //same num check
-    void check1(int a, int b, spairii &vecpr);
-
-    //only number check
-    void check2(int a, int b, spairii &vecpr);
-
-    bool haswrong(int a, int b);
-    bool haswrong2(int a, int b);
-    bool checkwin();
-    void show();
-};*/
 static std::default_random_engine e(time(0));
 
-void SudoKu::change_value(int lhs,int rhs) //½»»»Êý¶ÀÖÐÁ½¸öÊýµÄÎ»ÖÃ
+void SudoKu::change_value(int lhs,int rhs) //äº¤æ¢ä¸¤ä¸ªæ•°çš„ä½ç½®
 {
-    for(vint  & vec:vvnum)  //ÏÞÖÆ·¶Î§
+    for(vint  & vec:vvnum)  //å£°æ˜Žå¾ªçŽ¯èŒƒå›´
         for(int &a : vec)
         {
             if(a==lhs)a=rhs;
             else a= a==rhs?lhs:a;
         }
 }
-void SudoKu::swap_row(int lhs,int rhs) //½»»»ÐÐÊý¾Ý
+void SudoKu::swap_row(int lhs,int rhs) //äº¤æ¢è¡Œæ•°æ®
 {
     using std::swap;
-    swap(vvnum[lhs],vvnum[rhs]);  //Ê¹ÓÃÏµÍ³×Ô´øµÄº¯Êý
+    swap(vvnum[lhs],vvnum[rhs]);  //è°ƒç”¨åº“å‡½æ•°
 }
-void SudoKu::swap_threerow(int lhs,int rhs) //½»»»ÈýÐÐÊý¾Ý
+void SudoKu::swap_threerow(int lhs,int rhs) //äº¤æ¢è¿žç»­ä¸‰è¡Œçš„æ•°æ®
 {
-    for(int i=0;i<3;++i)   //Á¬ÐøÈý´Î½»»»ÐÐÊý¾Ý
+    for(int i=0;i<3;++i)   //è¿žç»­ä¸‰æ¬¡è°ƒç”¨äº¤æ¢è¡Œå‡½æ•°å³å¯å®žçŽ°
         swap_row(lhs+i,rhs+i);
 }
-void SudoKu::swap_threecol(int lhs,int rhs) //½»»»ÈýÁÐÊý¾Ý
+void SudoKu::swap_threecol(int lhs,int rhs) //äº¤æ¢ä¸‰åˆ—çš„æ•°æ®
 {
     for(int i=0;i<3;++i)
         swap_col(lhs+i,rhs+i);
 }
-void SudoKu::swap_col(int lhs,int rhs) //½»»»ÁÐÊý¾Ý
+void SudoKu::swap_col(int lhs,int rhs) //äº¤æ¢åˆ—æ•°æ®
 {
     for(int i=0;i<9;++i)
     {
@@ -85,21 +37,22 @@ void SudoKu::swap_col(int lhs,int rhs) //½»»»ÁÐÊý¾Ý
         swap(vvnum[i][lhs],vvnum[i][rhs]);
     }
 }
-void SudoKu::change_Number() //Ëæ»úÉú³É9*9Êý¶À
+void SudoKu::change_Number() //ç”Ÿæˆ9*9çš„æ•°ç‹¬
 {
-    std::uniform_int_distribution<int> u(1,9); //Ëæ»úÉú³É2¸öÊý×Ö½øÐÐ½»»»
-    //½»»»Á½¸öÊýµÄÎ»ÖÃ
-    for(int a=0;a<15;++a) //aÎª½»»»µÄ´ÎÊý
+    std::uniform_int_distribution<int> u(1,9); //ç”Ÿæˆ1~9çš„éšæœºæ•°
+    //éšæœºäº¤æ¢ä¸¤ä¸ªæ•°å€¼çš„ä½ç½®
+    for(int a=0;a<15;++a) //éšæœºäº¤æ¢aæ¬¡
     {
-        int i=u(e),j=u(e); //µÃµ½Ëæ»úÊý
+        int i=u(e),j=u(e); //å¾—åˆ°ä¸¤ä¸ªäº¤æ¢æ•°å€¼
         if(i!=j)
             change_value(u(e),u(e));
         else --a;
     }
-    std::uniform_int_distribution<int>ul(0,2); //Éú³É½»»»µÄÐÐºÍÁÐµÄËæ»úÊý
-    //½»»»ÐÐÁÐÊ±£¬Ö»ÓÐµ±1~3 4~6 7~9ÈýÐÐ£¨ÁÐ£©½øÐÐ½»»»Ê±²Å²»»áÆÆ»µÊý¶ÀµÄºÏÀíÐÔ
+    std::uniform_int_distribution<int>ul(0,2); //ç”Ÿæˆ0~2çš„éšæœºæ•°
+    //åœ¨äº¤æ¢è¡Œåˆ—æ•°æ®çš„æ—¶å€™éœ€è¦3è¡Œå†…è¿›è¡Œäº¤æ¢ï¼Œè¿™æ ·å¾—åˆ°çš„æ˜¯åˆæ³•çš„æ•°ç‹¬
+    //å¦åˆ™åœ¨äº¤æ¢è¿‡ç¨‹ä¸­ï¼Œæ•°ç‹¬å°†ä¼šä¸åˆæ³•
     //swap row and line 
-    for(int a=0;a<10;++a) //¿ªÊ¼½øÐÐËæ»ú×ª»»
+    for(int a=0;a<10;++a) //éšå³äº¤æ¢10æ¬¡
     {
         int bases=3*ul(e),i=bases+ul(e),j=bases+ul(e);
         if(i!=j)
@@ -115,10 +68,10 @@ void SudoKu::change_Number() //Ëæ»úÉú³É9*9Êý¶À
             swap_threecol(3*i,3*j);// 0 3 6
     }
     result=vvnum;
-    creat_sudo(); //Éú³ÉÊý¶ÀÓÎÏ·ÅÌ
+    creat_sudo(); //ç”Ÿæˆæœ€ç»ˆçš„æ•°ç‹¬æ£‹ç›˜
     
 }
-void SudoKu::show()
+/*void SudoKu::show()
 {
     int i, j;
     for (i = 0; i < 9;i++)
@@ -134,7 +87,7 @@ void SudoKu::show()
             cout << result[i][j] << ' ';
         cout << endl;
     }
-}
+}*/
 SudoKu::SudoKu()
 {
     vvnum= {{1,4,5,3,2,7,6,9,8},
@@ -146,10 +99,11 @@ SudoKu::SudoKu()
                 {3,6,7,5,4,2,8,1,9},
                 {9,8,4,7,6,1,2,3,5},
                 {5,2,1,8,3,9,7,6,4}};
+    change_Number();
             
 }
-void SudoKu::creat_sudo()
-{
+void SudoKu::creat_sudo() //æŒ–ç©ºæ³•å¾—åˆ°æ•°ç‹¬
+{   change_Number();
     srand(time(0));
     int i;
     for (i = 0; i < 40;i++)
@@ -164,15 +118,4 @@ void SudoKu::creat_sudo()
         }
 		vvnum[x][y]=0;
 	}
-    cout << endl;
-
-}
-int main()
-{
-    SudoKu one;
-    //one.show();
-    cout << endl;
-    one.change_Number();
-    one.show();
-    return 0;
 }
