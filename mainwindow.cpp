@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include<QObject>
 #include<QString>
+#include "SudoKu.h"
+#include<QDebug>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -10,12 +12,14 @@ MainWindow::MainWindow(QWidget *parent)
     //用QButtonGroup类来管理九宫格的81个按钮属性
     buttonGroup = new QButtonGroup;
 
+     s= new SudoKu;
     //设置互斥属性
     buttonGroup->setExclusive(true);
     //利用findchild查找81个按钮，然后添加到Group里，与编号对应
     for (int i=1;i<=81;i++) {
         buttonGroup->addButton(findChild<QPushButton*>("btn_"+QString::number(i)),i);
     }
+
    //设置选择按钮的样式
     ui->d_1->setStyleSheet("QPushButton{border:2px outset lightgray; background:rgb(236,236,236);}"
                            "QPushButton:hover{border-color:lightgray; background:transparent;}");
@@ -35,10 +39,17 @@ MainWindow::MainWindow(QWidget *parent)
                            "QPushButton:hover{border-color:lightgray; background:transparent;}");
     ui->d_9->setStyleSheet("QPushButton{border:2px outset lightgray; background:rgb(236,236,236);}"
                            "QPushButton:hover{border-color:lightgray; background:transparent;}");
+
    //设置九宫格样式
     for(int i=1;i<=81;i++)
     {
-        buttonGroup->button(i)->setCheckable(true);
+
+        if(s->vvnum[(i-1)/9][(i-1)%9]!=0)
+        {
+        buttonGroup->button(i)->setText(QString::number(s->vvnum[(i-1)/9][(i-1)%9]));
+        buttonGroup->button(i)->setEnabled(false);
+        }
+        else buttonGroup->button(i)->setCheckable(true);
         //设置右上边框
         if(i==3||i==30||i==57||i==6||i==33||i==60||i==9||i==36||i==63)
         {
@@ -130,56 +141,98 @@ void MainWindow:: clicked_81(int btnID)
 //填数按钮对应的槽函数
 void MainWindow::on_d_1_clicked()
 {
-    if(this->num_clicked!=0)
+    if(this->num_clicked!=0){
     this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_1->text());
+   if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,1))
+       this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:green");
+   else
+    this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:red");}
 }
 
 void MainWindow::on_d_8_clicked()
 {
-    if(this->num_clicked!=0)
-    this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_8->text());
+    if(this->num_clicked!=0){
+    this->buttonGroup->button(this->num_clicked)->setText("2");
+    if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,2))
+
+        this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:green");
+
+
+    else
+     this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:red");}
+
 }
 
 void MainWindow::on_d_7_clicked()
 {
-    if(this->num_clicked!=0)
-    this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_7->text());
+    if(this->num_clicked!=0){
+    this->buttonGroup->button(this->num_clicked)->setText("3");
+    if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,3))
+        this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:green");
+    else
+     this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:red");}
 }
 
 void MainWindow::on_d_4_clicked()
 {
-    if(this->num_clicked!=0)
-    this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_4->text());
+    if(this->num_clicked!=0){
+    this->buttonGroup->button(this->num_clicked)->setText("4");
+    if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,4))
+        this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:green");
+    else
+     this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:red");}
 }
 
 void MainWindow::on_d_5_clicked()
 {
-    if(this->num_clicked!=0)
+    if(this->num_clicked!=0){
     this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_5->text());
+    if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,5))
+        this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:green");
+    else
+     this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:red");}
 }
 
 void MainWindow::on_d_3_clicked()
 {
-    if(this->num_clicked!=0)
-    this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_3->text());
+    if(this->num_clicked!=0){
+    this->buttonGroup->button(this->num_clicked)->setText("6");
+    if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,6))
+        this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:green");
+    else
+     this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:red");}
 }
 
 void MainWindow::on_d_6_clicked()
 {
-    if(this->num_clicked!=0)
-    this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_6->text());
+    if(this->num_clicked!=0){
+    this->buttonGroup->button(this->num_clicked)->setText("7");
+    if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,7))
+        this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:green");
+    else
+     this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:red");}
 }
 
 void MainWindow::on_d_2_clicked()
 {
-    if(this->num_clicked!=0)
-    this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_2->text());
+
+    if(this->num_clicked!=0){
+    this->buttonGroup->button(this->num_clicked)->setText("8");
+    if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,8))
+        this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:green");
+   else
+     this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:red");}
+
 }
 
 void MainWindow::on_d_9_clicked()
 {
-    if(this->num_clicked!=0)
+    if(this->num_clicked!=0){
     this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_9->text());
+    if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,9))
+        this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:green");
+    else
+     this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:red");}
 }
 
 

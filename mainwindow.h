@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include<QButtonGroup>
-
+#include "SudoKu.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -44,5 +44,6 @@ private:
     Ui::MainWindow *ui;
     QButtonGroup *buttonGroup;
     int num_clicked=0;
+    SudoKu *s;
 };
 #endif // MAINWINDOW_H

@@ -103,12 +103,12 @@ SudoKu::SudoKu()
             
 }
 void SudoKu::creat_sudo() //挖空法得到数独
-{   change_Number();
+{
     srand(time(0));
     int i;
     for (i = 0; i < 40;i++)
     {
-		int x,y;
+        unsigned int x,y;
 		x=rand()%9;
 		y=rand()%9;
         while(vvnum[x][y]==0)
@@ -118,4 +118,11 @@ void SudoKu::creat_sudo() //挖空法得到数独
         }
 		vvnum[x][y]=0;
 	}
+}
+
+bool  SudoKu::judge_sudo(int num_btni,int num_btnj,int n)//第几个按钮填入了多少
+{
+    if(this->result[num_btni][num_btnj]==n)
+        return true;
+    else return false;
 }
