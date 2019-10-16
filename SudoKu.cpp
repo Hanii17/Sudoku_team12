@@ -104,9 +104,20 @@ SudoKu::SudoKu()
 }
 void SudoKu::creat_sudo() //挖空法得到数独
 {
+    int conl; //挖空数量
+    switch (level)
+    {
+    case 1: conl=40;
+        break;
+    case 2: conl=50;break;
+    case 3: conl=56;break;
+    case 4: conl=62;break;
+    default:conl=40;
+        break;
+    }
     srand(time(0));
     int i;
-    for (i = 0; i < 40;i++)
+    for (i = 0; i < conl;i++)
     {
         unsigned int x,y;
 		x=rand()%9;
