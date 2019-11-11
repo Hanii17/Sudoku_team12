@@ -14,7 +14,7 @@
    <string>数独游戏</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(177, 255, 177);</string>
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">

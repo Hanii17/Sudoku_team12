@@ -10,16 +10,19 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     //用QButtonGroup类来管理九宫格的81个按钮属性
-    buttonGroup = new QButtonGroup;
+    buttonGroup = new QButtonGroup(this);
 
-     s= new SudoKu;
+     s= new SudoKu; //记得释放内存
     //设置互斥属性
     buttonGroup->setExclusive(true);
     //利用findchild查找81个按钮，然后添加到Group里，与编号对应
     for (int i=1;i<=81;i++) {
         buttonGroup->addButton(findChild<QPushButton*>("btn_"+QString::number(i)),i);
     }
-
+   this->setStyleSheet("QPushButton{border-right:1px outset black;border-left:1px outset black;"
+                       " border-top:1px outset black;border-bottom:1px outset black;background:rgb(236,236,236);}"
+                       "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
+                       "QPushButton:checked{background-color:rgb(195, 222, 244);}");
    //设置选择按钮的样式
     ui->d_1->setStyleSheet("QPushButton{border:2px outset lightgray; background:rgb(236,236,236);}"
                            "QPushButton:hover{border-color:lightgray; background:transparent;}");
@@ -47,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
         if(s->vvnum[(i-1)/9][(i-1)%9]!=0)
         {
         buttonGroup->button(i)->setText(QString::number(s->vvnum[(i-1)/9][(i-1)%9]));
-        buttonGroup->button(i)->setEnabled(false);
+        buttonGroup->button(i)->setCheckable(false);
         }
         else buttonGroup->button(i)->setCheckable(true);
         //设置右上边框
