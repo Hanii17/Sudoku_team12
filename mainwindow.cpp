@@ -1,9 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include<QObject>
+
 #include<QString>
 #include "SudoKu.h"
 #include<QDebug>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -53,8 +55,9 @@ MainWindow::MainWindow(QWidget *parent)
         buttonGroup->button(i)->setCheckable(false);
         }
         else buttonGroup->button(i)->setCheckable(true);
+
         //设置右上边框
-        if(i==3||i==30||i==57||i==6||i==33||i==60||i==9||i==36||i==63)
+       /* if(i==3||i==30||i==57||i==6||i==33||i==60||i==9||i==36||i==63)
         {
             buttonGroup->button(i)->setStyleSheet("QPushButton{border-right:2px outset black;border-left:1px outset black;"
                                                   " border-top:2px outset black;border-bottom:1px outset black;background:rgb(236,236,236);}"
@@ -120,7 +123,7 @@ MainWindow::MainWindow(QWidget *parent)
         else{
         buttonGroup->button(i)->setStyleSheet("QPushButton{border:1px outset black; background:rgb(235,235,235);}"
                                               "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
-                                              "QPushButton:checked{background-color:rgb(195, 222, 244);}");}
+                                              "QPushButton:checked{background-color:rgb(195, 222, 244);}");}*/
     }
 
 
@@ -237,5 +240,8 @@ void MainWindow::on_d_9_clicked()
     else
      this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:red");}
 }
+
+
+
 
 
