@@ -21,6 +21,7 @@ public:
     void change_Number();//初始化9×9格子
     SudoKu();
      bool judge_sudo(int num_btni,int num_btnj,int n);
+     int level; //数独难度等级1~4
 
     vvint vvnum; //生成的游戏数独
     vvint result; //游戏数独的答案
