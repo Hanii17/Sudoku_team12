@@ -18,16 +18,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     SudoKu.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    start.cpp
 
 HEADERS += \
     SudoKu.h \
-    mainwindow.h
+    mainwindow.h \
+    start.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    start.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    image.qrc

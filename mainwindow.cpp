@@ -6,7 +6,7 @@
 #include "SudoKu.h"
 #include<QDebug>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget *parent,int x)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -14,13 +14,16 @@ MainWindow::MainWindow(QWidget *parent)
     //用QButtonGroup类来管理九宫格的81个按钮属性
     buttonGroup = new QButtonGroup(this);
 
-     s= new SudoKu; //记得释放内存
+    this->gamelevel=x;
+     s= new SudoKu(gamelevel); //记得释放内存
+
     //设置互斥属性
     buttonGroup->setExclusive(true);
     //利用findchild查找81个按钮，然后添加到Group里，与编号对应
     for (int i=1;i<=81;i++) {
         buttonGroup->addButton(findChild<QPushButton*>("btn_"+QString::number(i)),i);
     }
+  //设置窗口的按钮基础格式
    this->setStyleSheet("QPushButton{border-right:1px outset black;border-left:1px outset black;"
                        " border-top:1px outset black;border-bottom:1px outset black;background:rgb(236,236,236);}"
                        "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
@@ -45,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->d_9->setStyleSheet("QPushButton{border:2px outset lightgray; background:rgb(236,236,236);}"
                            "QPushButton:hover{border-color:lightgray; background:transparent;}");
 
+
+
    //设置九宫格样式
     for(int i=1;i<=81;i++)
     {
@@ -56,76 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
         }
         else buttonGroup->button(i)->setCheckable(true);
 
-        //设置右上边框
-       /* if(i==3||i==30||i==57||i==6||i==33||i==60||i==9||i==36||i==63)
-        {
-            buttonGroup->button(i)->setStyleSheet("QPushButton{border-right:2px outset black;border-left:1px outset black;"
-                                                  " border-top:2px outset black;border-bottom:1px outset black;background:rgb(236,236,236);}"
-                                                  "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
-                                                  "QPushButton:checked{background-color:rgb(195, 222, 244);}");
-        }
-        //设置左上边框
-        else if(i==1||i==28||i==55||i==4||i==31||i==58||i==7||i==34||i==61)
-        {
-            buttonGroup->button(i)->setStyleSheet("QPushButton{border-left:2px outset black;border-right:1px outset black;"
-                                                  " border-top:2px outset black;border-bottom:1px outset black;background:rgb(236,236,236);}"
-                                                  "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
-                                                  "QPushButton:checked{background-color:rgb(195, 222, 244);}");
-        }
-        //设置左下边框
-        else if(i==19||i==46||i==73||i==22||i==49||i==76||i==25||i==52||i==79)
-        {
-            buttonGroup->button(i)->setStyleSheet("QPushButton{border-left:2px outset black;border-right:1px outset black;"
-                                                  " border-bottom:2px outset black;border-top:1px outset black;background:rgb(236,236,236);}"
-                                                  "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
-                                                  "QPushButton:checked{background-color:rgb(195, 222, 244);}");
-        }
-        //设置右下边框
-        else if(i==21||i==24||i==27||i==48||i==51||i==54||i==75||i==78||i==81)
-        {
-            buttonGroup->button(i)->setStyleSheet("QPushButton{border-right:2px outset black;border-left:1px outset black;"
-                                                  " border-bottom:2px outset black;border-top:1px outset black;background:rgb(236,236,236);}"
-                                                  "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
-                                                  "QPushButton:checked{background-color:rgb(195, 222, 244);}");
-        }
-        //设置上边框
-        else if(i==2||i==5||i==8||i==29||i==32||i==35||i==59||i==56||i==62)
-        {
-            buttonGroup->button(i)->setStyleSheet("QPushButton{border-top:2px outset black;border-left:1px outset black;"
-                                                  " border-right:1px outset black;border-bottom:1px outset black;background:rgb(236,236,236);}"
-                                                  "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
-                                                  "QPushButton:checked{background-color:rgb(195, 222, 244);}");
-        }
-        //设置左边框
-        else if(i==10||i==13||i==16||i==37||i==40||i==43||i==64||i==67||i==70)
-        {
-            buttonGroup->button(i)->setStyleSheet("QPushButton{border-left:2px outset black;border-right:1px outset black;"
-                                                  " border-top:1px outset black;border-bottom:1px outset black;background:rgb(236,236,236);}"
-                                                  "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
-                                                  "QPushButton:checked{background-color:rgb(195, 222, 244);}");
-        }
-        //设置下边框
-        else if(i==74||i==77||i==80||i==47||i==50||i==53||i==20||i==23||i==26)
-        {
-            buttonGroup->button(i)->setStyleSheet("QPushButton{border-bottom:2px outset black;border-right:1px outset black;"
-                                                  " border-top:1px outset black;border-left:1px outset black;background:rgb(236,236,236);}"
-                                                  "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
-                                                  "QPushButton:checked{background-color:rgb(195, 222, 244);}");
-        }
-       //设置右边框
-        else if(i==18||i==45||i==72||i==12||i==39||i==66||i==42||i==15||i==69)
-        {
-            buttonGroup->button(i)->setStyleSheet("QPushButton{border-right:2px outset black;border-bottom:1px outset black;"
-                                                  " border-top:1px outset black;border-left:1px outset black;background:rgb(236,236,236);}"
-                                                  "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
-                                                  "QPushButton:checked{background-color:rgb(195, 222, 244);}");
-        }
-        else{
-        buttonGroup->button(i)->setStyleSheet("QPushButton{border:1px outset black; background:rgb(235,235,235);}"
-                                              "QPushButton:hover{border-color:blue; background:rgb(195, 222, 244);}"
-                                              "QPushButton:checked{background-color:rgb(195, 222, 244);}");}*/
-    }
-
+}
 
     //当九宫格里的按钮被选中时信号的处理
     connect(buttonGroup,SIGNAL(buttonClicked(int)),this,SLOT(clicked_81(int)));
@@ -135,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete this->s;
 }
 
 //槽函数，用来传递被选中的按钮的numID
@@ -243,5 +180,15 @@ void MainWindow::on_d_9_clicked()
 
 
 
+
+
+//擦除功能
+void MainWindow::on_pushButton_clicked()
+{
+    if(this->num_clicked!=0){
+        this->buttonGroup->button(this->num_clicked)->setText("");
+
+    }
+}
 
 

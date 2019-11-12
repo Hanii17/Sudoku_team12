@@ -88,7 +88,7 @@ void SudoKu::change_Number() //生成9*9的数独
         cout << endl;
     }
 }*/
-SudoKu::SudoKu()
+SudoKu::SudoKu(int level_sudoku)
 {
     vvnum= {{1,4,5,3,2,7,6,9,8},
                 {8,3,9,6,5,4,1,2,7},
@@ -99,6 +99,7 @@ SudoKu::SudoKu()
                 {3,6,7,5,4,2,8,1,9},
                 {9,8,4,7,6,1,2,3,5},
                 {5,2,1,8,3,9,7,6,4}};
+     level=level_sudoku;
     change_Number();
             
 }

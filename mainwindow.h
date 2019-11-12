@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include<QButtonGroup>
 #include "SudoKu.h"
-#include<QPoint>
+#include <QApplication>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -14,7 +15,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+   explicit MainWindow(QWidget *parent = nullptr,int x=1);
     ~MainWindow();
 
 
@@ -42,11 +43,14 @@ private slots:
 
 
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QButtonGroup *buttonGroup;
     int num_clicked=0;
     SudoKu *s;
-    QPoint pot1[4],pot2[4];
+    int gamelevel;
+
 };
 #endif // MAINWINDOW_H
