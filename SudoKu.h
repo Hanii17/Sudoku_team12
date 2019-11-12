@@ -5,6 +5,9 @@
 #include<cstdlib>
 typedef std::vector<int>  vint;
 typedef std::vector<vint> vvint;
+typedef std::vector<bool> vbool;
+typedef std::vector<vbool> vvbool;
+
 class SudoKu
 {
 private:
@@ -21,10 +24,33 @@ public:
     void change_Number();//初始化9×9格子
     SudoKu();
      bool judge_sudo(int num_btni,int num_btnj,int n);
-     int level; //数独难度等级1~4
 
     vvint vvnum; //生成的游戏数独
     vvint result; //游戏数独的答案
 
+};
+
+class Level
+{
+private:
+	//数独难度选择函数,设置成员变量ways
+	void setlevel();	//难度选择函数
+	void easylevel();	//简单难度
+	void midlevel();	//中等难度
+	void hardlevel();	//困难难度
+	void show_sudo();	//根据成员变量ways设置成员变量how_to_show
+
+	//成员变量
+	const int level;	//难度，可选择1-3
+	vint ways;	//一维数组，设置每行显示出几个数
+	vvbool how_to_show;	//9x9的显示方式
+
+public:
+	const std::vector<bool>& operator[](int a)const 
+	{ 
+		return how_to_show[a]; 
+	}
+
+	explicit GameLevel(int alevel);
 };
 #endif
