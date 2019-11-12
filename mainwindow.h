@@ -5,7 +5,8 @@
 #include<QButtonGroup>
 #include "SudoKu.h"
 #include <QApplication>
-
+#include<QTime>
+#include<QTimer>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -43,7 +44,11 @@ private slots:
 
 
 
-    void on_pushButton_clicked();
+
+
+    void on_clear_btn_clicked();
+
+    void on_idea_btn_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -51,6 +56,8 @@ private:
     int num_clicked=0;
     SudoKu *s;
     int gamelevel;
+    QTimer ptimer;
+    QTime baseTime;
 
 };
 #endif // MAINWINDOW_H

@@ -138,3 +138,22 @@ bool  SudoKu::judge_sudo(int num_btni,int num_btnj,int n)//第几个按钮填入
         return true;
     else return false;
 }
+
+int SudoKu::idea_sudo()
+{
+    srand(time(0));
+    int x;
+    int raw,line;
+    x=(rand()%81)+1;
+    raw=(x-1)/9;
+    line=(x-1)%9;
+    while(vvnum[raw][line]!=0)
+    {
+        x=(rand()%81)+1;
+        raw=(x-1)/9;
+        line=(x-1)%9;
+    }
+    vvnum[raw][line]=result[raw][line];
+return x;
+
+}
