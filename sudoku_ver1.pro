@@ -17,16 +17,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     SudoKu.cpp \
+    finished_dialog.cpp \
     main.cpp \
     mainwindow.cpp \
     start.cpp
 
 HEADERS += \
     SudoKu.h \
+    finished_dialog.h \
     mainwindow.h \
     start.h
 
 FORMS += \
+    finished_dialog.ui \
     mainwindow.ui \
     start.ui
 

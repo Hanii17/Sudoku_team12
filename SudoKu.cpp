@@ -71,23 +71,7 @@ void SudoKu::change_Number() //生成9*9的数独
     creat_sudo(); //生成最终的数独棋盘
     
 }
-/*void SudoKu::show()
-{
-    int i, j;
-    for (i = 0; i < 9;i++)
-    {
-        for (j = 0; j < 9;j++)
-            cout << vvnum[i][j] << ' ';
-        cout << endl;
-    }
-    cout << endl;
-    for (i = 0; i < 9;i++)
-    {
-        for (j = 0; j < 9;j++)
-            cout << result[i][j] << ' ';
-        cout << endl;
-    }
-}*/
+
 SudoKu::SudoKu(int level_sudoku)
 {
     vvnum= {{1,4,5,3,2,7,6,9,8},
@@ -134,11 +118,26 @@ void SudoKu::creat_sudo() //挖空法得到数独
 
 bool  SudoKu::judge_sudo(int num_btni,int num_btnj,int n)//第几个按钮填入了多少
 {
-    if(this->result[num_btni][num_btnj]==n)
+    /*if(this->result[num_btni][num_btnj]==n)
         return true;
-    else return false;
+    else return false;*/
+    int i, j;
+        for (i = 0; i < 9; i++)
+        {
+            for (j = 0; j < 9; j++)
+            {
+                if (j != num_btnj && vvnum[num_btni][j] != 0 && n == vvnum[num_btni][j])	//判断行有没有填重复
+                    return false;
+                if (j != num_btni && vvnum[j][num_btnj] != 0 && n == vvnum[j][num_btnj])	//判断列有没有填重复
+                    return false;
+                if ((i != num_btni || j != num_btnj) && vvnum[i][j] != 0 && i / 3 == num_btni / 3 && j / 3 == num_btnj / 3 && n == vvnum[i][j])	//判断3x3有没有填重复
+                    return false;
+            }
+        }
+        return true;
 }
 
+//提示功能
 int SudoKu::idea_sudo()
 {
     srand(time(0));
@@ -147,6 +146,7 @@ int SudoKu::idea_sudo()
     x=(rand()%81)+1;
     raw=(x-1)/9;
     line=(x-1)%9;
+    if(vvnum[raw][line]!=0)
     while(vvnum[raw][line]!=0)
     {
         x=(rand()%81)+1;
@@ -155,5 +155,22 @@ int SudoKu::idea_sudo()
     }
     vvnum[raw][line]=result[raw][line];
 return x;
+
+}
+//变换格子颜色
+int* SudoKu:: change_color()
+{
+       c_color[36] = {};int i,j,matrix_i,matrix_j;
+        for (i = 1, j = 0; i <= 81 && j < 36; i++)
+        {
+            matrix_i = (i - 1) / 9 / 3;
+            matrix_j = (i - 1) % 9 / 3;
+            if (matrix_i + matrix_j == 1 || matrix_i + matrix_j == 3)
+            {
+                c_color[j] = i;
+                j++;
+            }
+        }
+        return c_color;
 
 }

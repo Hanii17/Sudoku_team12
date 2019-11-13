@@ -18,6 +18,8 @@ public:
 private slots:
     void on_start_btn_clicked();
 
+    void on_rule_btn_clicked();
+   void backtostart();
 private:
     Ui::start *ui;
   MainWindow *a;
