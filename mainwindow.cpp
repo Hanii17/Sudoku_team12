@@ -158,7 +158,7 @@ void MainWindow:: clicked_81(int btnID)
 //填入1
 void MainWindow::on_d_1_clicked()
 {
-    if(this->num_clicked!=0){
+    if(this->num_clicked!=0&&this->buttonGroup->button(num_clicked)->isCheckable()){
     this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_1->text());
    if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,1))
        {
@@ -218,7 +218,7 @@ void MainWindow::on_d_1_clicked()
 //填入2
 void MainWindow::on_d_8_clicked()
 {
-    if(this->num_clicked!=0){
+    if(this->num_clicked!=0&&this->buttonGroup->button(num_clicked)->isCheckable()){
     this->buttonGroup->button(this->num_clicked)->setText("2");
     if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,2))
        {
@@ -276,7 +276,7 @@ void MainWindow::on_d_8_clicked()
 //填入3
 void MainWindow::on_d_7_clicked()
 {
-    if(this->num_clicked!=0){
+    if(this->num_clicked!=0&&this->buttonGroup->button(num_clicked)->isCheckable()){
     this->buttonGroup->button(this->num_clicked)->setText("3");
     if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,3))
         {
@@ -333,7 +333,7 @@ void MainWindow::on_d_7_clicked()
 //填入4
 void MainWindow::on_d_4_clicked()
 {
-    if(this->num_clicked!=0){
+    if(this->num_clicked!=0&&this->buttonGroup->button(num_clicked)->isCheckable()){
     this->buttonGroup->button(this->num_clicked)->setText("4");
     if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,4))
         {
@@ -388,7 +388,7 @@ void MainWindow::on_d_4_clicked()
 //填入5
 void MainWindow::on_d_5_clicked()
 {
-    if(this->num_clicked!=0){
+    if(this->num_clicked!=0&&this->buttonGroup->button(num_clicked)->isCheckable()){
     this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_5->text());
     if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,5)){
         this->buttonGroup->button(this->num_clicked)->setStyleSheet("color:rgb(39,216,39)");
@@ -444,7 +444,7 @@ void MainWindow::on_d_5_clicked()
 //填入6
 void MainWindow::on_d_3_clicked()
 {
-    if(this->num_clicked!=0){
+    if(this->num_clicked!=0&&this->buttonGroup->button(num_clicked)->isCheckable()){
     this->buttonGroup->button(this->num_clicked)->setText("6");
     if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,6))
         {
@@ -500,7 +500,7 @@ void MainWindow::on_d_3_clicked()
 //填入7
 void MainWindow::on_d_6_clicked()
 {
-    if(this->num_clicked!=0){
+    if(this->num_clicked!=0&&this->buttonGroup->button(num_clicked)->isCheckable()){
     this->buttonGroup->button(this->num_clicked)->setText("7");
     if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,7))
         {
@@ -558,7 +558,7 @@ void MainWindow::on_d_6_clicked()
 void MainWindow::on_d_2_clicked()
 {
 
-    if(this->num_clicked!=0){
+    if(this->num_clicked!=0&&this->buttonGroup->button(num_clicked)->isCheckable()){
     this->buttonGroup->button(this->num_clicked)->setText("8");
     if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,8))
         {
@@ -615,7 +615,7 @@ void MainWindow::on_d_2_clicked()
 //填入9
 void MainWindow::on_d_9_clicked()
 {
-    if(this->num_clicked!=0){
+    if(this->num_clicked!=0&&this->buttonGroup->button(num_clicked)->isCheckable()){
     this->buttonGroup->button(this->num_clicked)->setText(this->ui->d_9->text());
     if (this->s->judge_sudo((this->num_clicked-1)/9,(this->num_clicked-1)%9,9))
     {
@@ -676,8 +676,9 @@ void MainWindow::on_d_9_clicked()
 //擦除功能
 void MainWindow::on_clear_btn_clicked()
 {
-    if(this->num_clicked!=0){
+    if(this->num_clicked!=0&&this->buttonGroup->button(num_clicked)->isCheckable()){
         this->buttonGroup->button(this->num_clicked)->setText("");
+        this->s->vvnum[(this->num_clicked-1)/9][(this->num_clicked-1)%9]=0;
       this->buttonGroup->button(this->num_clicked)->setCheckable(true);
     }
 }
