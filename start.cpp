@@ -12,6 +12,7 @@ start::start(QWidget *parent) :
     ui(new Ui::start),a(nullptr)
 {
     ui->setupUi(this);
+
  this->ui->start_btn->setStyleSheet("QPushButton{border:1px solid lightgray; background:rgb(230,230,230);}"
                                     "QPushButton:hover{border-color:green; background:transparent;}");
  this->ui->rule_btn->setStyleSheet("QPushButton{border:1px solid lightgray; background:rgb(230,230,230);}"
